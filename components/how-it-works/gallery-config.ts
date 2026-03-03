@@ -38,15 +38,14 @@ export const FEATURES = [
 
 export const RADIUS = 1100;
 export const DESKTOP_PHOTO_COUNT = DESKTOP_PHOTOS.length;
-// Tighter spacing (12° vs 16°) so photos are closer together and fill more of the arc
-export const ANGLE_STEP = 12;
+export const ANGLE_STEP = 16;
 export const START_ANGLE = -((DESKTOP_PHOTO_COUNT - 1) / 2) * ANGLE_STEP;
 // TOTAL_ROTATION: total degrees the wheel rotates during scroll (negative = counter-clockwise)
 export const TOTAL_ROTATION = -36;
 export const PHOTO_TOP_OFFSET = 60;
 // INITIAL_ROTATION: centers carousel-5.png (index 9 in the doubled array) at 12 o'clock.
-// Index 9 angle = START_ANGLE + 9 * 12 = -90 + 108 = 18°. Negate to center: -18°.
-export const INITIAL_ROTATION = -18;
+// Index 9 angle = START_ANGLE + 9 * 16 = -120 + 144 = 24°. Negate to center: -24°.
+export const INITIAL_ROTATION = -24;
 
 export function getPhotoStyle(index: number) {
   const angleDeg = START_ANGLE + index * ANGLE_STEP;
