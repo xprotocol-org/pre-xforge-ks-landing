@@ -143,7 +143,7 @@ export default function MobileGallery() {
         </AnimatePresence>
       </div>
 
-      <div className="mt-5 flex justify-center px-4 sm:px-6">
+      <div className="mt-8 flex justify-center px-4 sm:px-6">
         <EmailSubscription />
       </div>
     </div>

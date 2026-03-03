@@ -131,7 +131,7 @@ export default function HowItWorks() {
           </AnimatePresence>
         </div>
 
-        <div className="flex justify-center pt-4 lg:pt-6 pb-3">
+        <div className="flex justify-center pt-8 lg:pt-10 pb-3">
           <EmailSubscription />
         </div>
       </div>
