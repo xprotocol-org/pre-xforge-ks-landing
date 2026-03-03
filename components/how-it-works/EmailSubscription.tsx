@@ -66,7 +66,7 @@ export default function EmailSubscription() {
           type="button"
           onClick={handleNotify}
           whileHover="wiggle"
-          whileTap="wiggle"
+          whileTap={{ scale: 0.97 }}
           className={`${S.btnGold} flex items-center justify-center gap-2 px-4 h-[48px] md:h-[32px] rounded-[16px] md:rounded-[12px] text-base font-medium hover:scale-[1.04] shrink-0 w-full md:w-auto`}
         >
           <motion.span

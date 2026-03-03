@@ -193,7 +193,7 @@ export default function Hero() {
                   type="button"
                   onClick={handleSubmit}
                   whileHover="wiggle"
-                  whileTap="wiggle"
+                    whileTap={{ scale: 0.97 }}
                   className={`${S.btnGold} flex-shrink-0 flex items-center gap-1.5 sm:gap-2 rounded-[10px] sm:rounded-[12px] px-3 sm:px-4 h-[28px] sm:h-[32px] text-sm sm:text-base font-medium hover:scale-[1.04]`}
                 >
                   <motion.span
