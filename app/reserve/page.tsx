@@ -295,34 +295,6 @@ function ReserveForm() {
         </Link>
       </p>
 
-      {/* Footer links */}
-      <div className="flex items-center justify-center gap-5 text-[11px] lg:text-sm leading-[1.1] text-[#707070] pt-4">
-        <a
-          href="https://kickstarter.xforgephone.com/privacy-policy"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-normal hover:text-[#050505] transition-colors duration-200"
-        >
-          Privacy Policy
-        </a>
-        <a
-          href="https://kickstarter.xforgephone.com/terms-and-conditions"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-medium hover:text-[#050505] transition-colors duration-200"
-        >
-          Refund Policy
-        </a>
-        <a
-          href="mailto:support@xforgephone.com"
-          className="font-normal hover:text-[#050505] transition-colors duration-200"
-        >
-          Contact
-        </a>
-      </div>
-      <p className="text-[11px] font-normal leading-[1.1] text-[#707070] text-center pt-3 pb-2">
-        © 2026 XForge. All rights reserved.
-      </p>
     </div>
   );
 }
