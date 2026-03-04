@@ -11,7 +11,7 @@ const jsonLd = {
   "@type": "Product",
   name: "XForge Phone",
   description:
-    "A premium smartphone that quietly contributes to a decentralized network while you use it, rewarding you with real perks every single day.",
+    "XForge is a premium Android smartphone powered by on-device AI built to reward you.",
   brand: { "@type": "Brand", name: "XForge" },
   image: "https://test-ad-landing-nh4h.vercel.app/placeholders/reserve-product.png",
   url: "https://test-ad-landing-nh4h.vercel.app",

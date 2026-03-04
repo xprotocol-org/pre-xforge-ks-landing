@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "Your AI smartphone quietly contributes extra power while you use it, rewarding you with real perks every single day.",
+    "XForge is a premium Android smartphone powered by on-device AI built to reward you.",
   keywords: [
     "XForge",
     "XForge Phone",
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: "XForge Phone — AI Smartphone that Pays It Forward",
     description:
-      "Your AI smartphone quietly contributes extra power while you use it, rewarding you with real perks every single day.",
+      "XForge is a premium Android smartphone powered by on-device AI built to reward you.",
     images: [
       {
         url: "/placeholders/reserve-product.png",
@@ -90,7 +90,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "XForge Phone — AI Smartphone that Pays It Forward",
     description:
-      "Your AI smartphone quietly contributes extra power while you use it, rewarding you with real perks every single day.",
+      "XForge is a premium Android smartphone powered by on-device AI built to reward you.",
     images: ["/placeholders/reserve-product.png"],
   },
   alternates: {
