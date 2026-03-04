@@ -13,14 +13,14 @@ const jsonLd = {
   description:
     "A premium smartphone that quietly contributes to a decentralized network while you use it, rewarding you with real perks every single day.",
   brand: { "@type": "Brand", name: "XForge" },
-  image: "https://kickstarter.xforgephone.com/placeholders/reserve-product.png",
-  url: "https://kickstarter.xforgephone.com",
+  image: "https://test-ad-landing-nh4h.vercel.app/placeholders/reserve-product.png",
+  url: "https://test-ad-landing-nh4h.vercel.app",
   offers: {
     "@type": "Offer",
     price: "299",
     priceCurrency: "USD",
     availability: "https://schema.org/PreOrder",
-    url: "https://kickstarter.xforgephone.com/reserve",
+    url: "https://test-ad-landing-nh4h.vercel.app/reserve",
     priceValidUntil: "2027-12-31",
   },
   aggregateRating: undefined,

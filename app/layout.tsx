@@ -4,7 +4,7 @@ import GoogleAnalytics from "@/components/GoogleAnalytics";
 import "./globals.css";
 
 // UPDATE HERE when domain changes — affects canonical URL, OG tags, and sitemap
-const SITE_URL = "https://kickstarter.xforgephone.com";
+const SITE_URL = "https://test-ad-landing-nh4h.vercel.app";
 const SITE_NAME = "XForge Phone";
 
 const interTight = Inter_Tight({

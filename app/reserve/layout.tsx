@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     title: "Reserve Your XForge Phone — 40% Off",
     description:
       "Lock in the lowest price ever with a $3 refundable deposit. Cancel anytime, no questions asked.",
-    url: "https://kickstarter.xforgephone.com/reserve",
+    url: "https://test-ad-landing-nh4h.vercel.app/reserve",
     images: [
       {
         url: "/placeholders/reserve-product.png",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     images: ["/placeholders/reserve-product.png"],
   },
   alternates: {
-    canonical: "https://kickstarter.xforgephone.com/reserve",
+    canonical: "https://test-ad-landing-nh4h.vercel.app/reserve",
   },
 };
 
