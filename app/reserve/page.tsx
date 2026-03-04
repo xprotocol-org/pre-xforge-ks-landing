@@ -102,7 +102,7 @@ function ProductImage() {
   return (
     <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[550px] rounded-[16px] overflow-hidden">
       <Image
-        src="/placeholders/reserve-product.png"
+        src="/placeholders/reserve-photo.png"
         alt="XForge Phone"
         fill
         className="object-cover"
