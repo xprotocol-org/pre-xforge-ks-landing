@@ -27,7 +27,7 @@ export const FEATURES = [
   {
     title: "It Contributes in the Background",
     description:
-      "While you live your life, XForge quietly shares idle computing resources with a decentralized network. Zero impact on performance.",
+      "While you go about your day, XForge quietly uses your phone’s unused power to help with storage, connectivity, and compute—without affecting performance.",
   },
   {
     title: "You Earn Rewards & Perks",

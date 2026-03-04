@@ -116,7 +116,7 @@ export default function WhyDifferent() {
             variants={fadeInUp}
           >
             <h3 className="text-[18px] sm:text-[20px] md:text-[24px] lg:text-[28px] font-medium leading-[1.1] text-white mb-3 sm:mb-4">
-              Passive Contribution, Real Rewards
+            You Earn Passively with Real Rewards
             </h3>
             <p className="text-[14px] sm:text-sm lg:text-base font-normal leading-[1.3] text-xforge-gray max-w-[486px]">
               XForge works just like any other smartphone, with no learning
