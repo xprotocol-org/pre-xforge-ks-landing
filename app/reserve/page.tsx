@@ -93,6 +93,27 @@ function ProductImage() {
         className="object-cover"
         priority
       />
+      {/* Text overlay matching Figma */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+      <div className="absolute bottom-5 sm:bottom-8 left-5 sm:left-8 z-10 flex flex-col gap-2 sm:gap-3">
+        <div className="flex items-center gap-2">
+          <Image
+            src="/placeholders/nav-logos.svg"
+            alt="XForge × Kickstarter"
+            width={160}
+            height={14}
+            className="h-[12px] sm:h-[14px] w-auto brightness-0 invert"
+          />
+        </div>
+        <div className="flex flex-col gap-0.5">
+          <p className="text-white text-[24px] sm:text-[32px] lg:text-[40px] font-semibold leading-[1.1]">
+            AI Smartphone that
+          </p>
+          <p className="text-[#05ce78] text-[24px] sm:text-[32px] lg:text-[40px] font-bold italic leading-[1.1] font-serif">
+            Pays It Forward
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

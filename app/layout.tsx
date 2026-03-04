@@ -36,7 +36,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "XForge Phone — AI Smartphone that Pays It Forward",
+    default: "Meet XForge. The AI smartphone that pays it forward.",
     template: `%s | ${SITE_NAME}`,
   },
   description:
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: "XForge Phone — AI Smartphone that Pays It Forward",
+    title: "Meet XForge. The AI smartphone that pays it forward.",
     description:
       "XForge is a premium Android smartphone powered by on-device AI built to reward you.",
     images: [
@@ -88,7 +88,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "XForge Phone — AI Smartphone that Pays It Forward",
+    title: "Meet XForge. The AI smartphone that pays it forward.",
     description:
       "XForge is a premium Android smartphone powered by on-device AI built to reward you.",
     images: ["/placeholders/reserve-product.png"],

@@ -42,9 +42,9 @@ export default function EmailSubscription() {
   }
 
   return (
-    <div className="w-full max-w-[360px] sm:max-w-[465px]">
+    <div className="w-full max-w-[360px] sm:max-w-[500px]">
       <div
-        className={`relative bg-xforge-input-bg border rounded-[20px] md:rounded-[12px] flex flex-col md:flex-row md:items-center p-1 md:pl-4 md:pr-1 md:py-1 gap-1 md:gap-0 md:h-[44px] w-full transition-colors duration-200 ${
+        className={`relative bg-xforge-input-bg border rounded-[20px] md:rounded-[12px] flex flex-col md:flex-row md:items-center p-1 md:pl-4 md:pr-2 md:py-2 gap-1 md:gap-0 w-full transition-colors duration-200 ${
           showError ? "border-red-500 border-2" : "border-xforge-border"
         }`}
       >
@@ -67,7 +67,7 @@ export default function EmailSubscription() {
           onClick={handleNotify}
           whileHover="wiggle"
           whileTap={{ scale: 0.97, boxShadow: "0px 0px 20px 4px rgba(255,188,14,0.5), 0px 0px 0px 1px #fbc946, 0px 1px 2px 0px rgba(0,0,0,0.3)" }}
-          className={`${S.btnGold} flex items-center justify-center gap-2 px-4 h-[48px] md:h-[32px] rounded-[16px] md:rounded-[12px] text-base font-medium hover:scale-[1.04] shrink-0 w-full md:w-auto`}
+          className={`${S.btnGold} flex items-center justify-center gap-2 px-4 h-[48px] md:h-[44px] rounded-[16px] md:rounded-[12px] text-base font-medium hover:scale-[1.04] shrink-0 w-full md:w-auto`}
         >
           <motion.span
             variants={{ wiggle: { rotate: [0, -3, 3, -2, 1.5, 0] } }}
