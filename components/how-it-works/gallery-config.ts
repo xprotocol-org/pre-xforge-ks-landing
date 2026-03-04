@@ -40,8 +40,9 @@ export const RADIUS = 1100;
 const DESKTOP_PHOTO_COUNT = DESKTOP_PHOTOS.length;
 const ANGLE_STEP = 16;
 const START_ANGLE = -((DESKTOP_PHOTO_COUNT - 1) / 2) * ANGLE_STEP;
-// TOTAL_ROTATION: total degrees the wheel rotates during scroll (negative = counter-clockwise)
-export const TOTAL_ROTATION = -36;
+// TOTAL_ROTATION: must be a multiple of ANGLE_STEP so a photo is centered at each step.
+// 2 transitions × 16° = 32°. Negative = counter-clockwise.
+export const TOTAL_ROTATION = -32;
 export const PHOTO_TOP_OFFSET = 60;
 // INITIAL_ROTATION: centers carousel-5.png (index 9 in the doubled array) at 12 o'clock.
 // Index 9 angle = START_ANGLE + 9 * 16 = -120 + 144 = 24°. Negate to center: -24°.

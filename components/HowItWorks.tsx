@@ -86,6 +86,24 @@ export default function HowItWorks() {
     }, AUTO_PLAY_RESUME_DELAY);
   }, [clearAutoTimer, startAutoPlay]);
 
+  const goToStep = useCallback((stepIndex: number) => {
+    const st = stRef.current;
+    if (!st) return;
+    const targetProgress = SNAP_POINTS[stepIndex];
+    const targetScroll = st.start + targetProgress * (st.end - st.start);
+    clearAutoTimer();
+    isAutoScrolling.current = true;
+    gsap.to(window, {
+      scrollTo: { y: targetScroll },
+      duration: 1,
+      ease: "power2.inOut",
+      onComplete: () => {
+        isAutoScrolling.current = false;
+        startAutoPlay();
+      },
+    });
+  }, [clearAutoTimer, startAutoPlay]);
+
   useEffect(() => {
     if (!triggerRef.current || !wheelRef.current) return;
 
@@ -149,7 +167,7 @@ export default function HowItWorks() {
             </h2>
           </div>
 
-          <div className="relative mt-[12px] lg:mt-[16px] mx-auto w-full max-w-[1200px] h-[min(calc(100dvh-380px),500px)] overflow-visible">
+          <div className="relative mt-[12px] lg:mt-[16px] mx-auto w-full h-[min(calc(100dvh-380px),500px)] overflow-visible">
             <div
               ref={wheelRef}
               className="absolute inset-0 will-change-transform"
@@ -180,9 +198,12 @@ export default function HowItWorks() {
 
           <div className="flex justify-center gap-2 mt-6 mb-3">
             {FEATURES.map((_, i) => (
-              <div
+              <button
                 key={i}
-                className={`h-2 rounded-full transition-all duration-300 ${
+                type="button"
+                aria-label={`Go to step ${i + 1}`}
+                onClick={() => goToStep(i)}
+                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                   i === activeStep ? "bg-black w-6" : "bg-gray-300 w-2"
                 }`}
               />
