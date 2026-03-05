@@ -321,12 +321,12 @@ function MobileCameraPhoto() {
       setScanBarActive(true);
       setFlash(false);
 
-      const ctrlX = fmAnimate(vfX, [0, 40, -25, 18, 5], {
+      const ctrlX = fmAnimate(vfX, [0, 55, -35, 25, 8], {
         duration: 3.2,
         ease: "easeInOut",
         times: [0, 0.25, 0.5, 0.75, 1],
       });
-      const ctrlY = fmAnimate(vfY, [0, 14, -6, 10, 14], {
+      const ctrlY = fmAnimate(vfY, [0, 18, -8, 12, 18], {
         duration: 3.2,
         ease: "easeInOut",
         times: [0, 0.25, 0.5, 0.75, 1],
@@ -369,7 +369,7 @@ function MobileCameraPhoto() {
       initial={{ opacity: 0 }}
       animate={inView ? { opacity: 1 } : {}}
       transition={{ duration: 0.5 }}
-      className="relative rounded-[13px] overflow-hidden w-full"
+      className="relative rounded-[15px] overflow-hidden w-full"
       style={{ height: MOBILE_CONTAINER_H }}
     >
       <Image
@@ -391,7 +391,7 @@ function MobileCameraPhoto() {
           y: vfY,
         }}
       >
-        <div className="absolute inset-0 rounded-[10px] overflow-hidden">
+        <div className="absolute inset-0 rounded-[12px] overflow-hidden">
           <motion.div
             className="absolute"
             style={{
@@ -427,12 +427,6 @@ function MobileCameraPhoto() {
           />
         )}
       </motion.div>
-
-      {/* Scanning gradient below viewfinder */}
-      <div
-        className="absolute left-1/2 -translate-x-1/2 bg-gradient-to-b from-[rgba(244,255,86,0.23)] to-transparent border-t border-[#919374]"
-        style={{ bottom: 0, width: 193, height: 102 }}
-      />
 
       <motion.div
         className="absolute inset-0 bg-white pointer-events-none z-10"
