@@ -19,9 +19,8 @@ const CARD_BG =
   "radial-gradient(ellipse at center top, #050505, #141414 50%, #2a2a2a 62.5%, #404040 75%, #565656 87.5%, #6d6d6d 100%)";
 
 const hoverProps = {
-  whileHover: { scale: 1.03 },
-  whileTap: { scale: 1.01 },
-  transition: { type: "spring" as const, stiffness: 300, damping: 20 },
+  whileHover: { scale: 1.03, transition: { type: "spring" as const, stiffness: 300, damping: 20 } },
+  whileTap: { scale: 1.01, transition: { type: "spring" as const, stiffness: 300, damping: 20 } },
 };
 
 interface CardProps {
