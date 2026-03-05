@@ -692,7 +692,7 @@ export default function WhyDifferent() {
               <div className="flex flex-col gap-2">
                 <h3 className="text-[28px] font-medium leading-[1.1] text-white">
                   A quiet{" "}
-                  <span className="font-serif italic text-[#ffbc0e]">Revolution</span>
+                  <span className="font-serif italic text-[#ffbc0e]">revolution</span>
                   {" "}in your pocket
                 </h3>
                 <p className="text-[16px] font-normal leading-[1.3] text-[#999]">
@@ -723,8 +723,8 @@ export default function WhyDifferent() {
               className="flex flex-col gap-2 max-w-[400px]"
             >
               <h3 className="text-[28px] font-medium leading-[1.1] text-white">
-                <span className="font-serif italic text-[#ffbc0e]">Capture</span>
-                {" "}the magic
+                Capture the{" "}
+                <span className="font-serif italic text-[#ffbc0e]">magic</span>
               </h3>
               <p className="text-[16px] font-normal leading-[1.3] text-[#999]">
                 {`Life moves fast. Your camera should keep up. We designed the AI camera system on XForge to instantly understand what you're shooting and make it look spectacular.`}
@@ -807,7 +807,7 @@ export default function WhyDifferent() {
               <div className="flex flex-col gap-2">
                 <h3 className="text-[24px] font-medium leading-[1.1] text-white">
                   A quiet{" "}
-                  <span className="font-serif italic text-[#ffbc0e]">Revolution</span>
+                  <span className="font-serif italic text-[#ffbc0e]">revolution</span>
                   {" "}in your pocket
                 </h3>
                 <p className="text-[14px] font-normal leading-[1.3] text-[#999]">
@@ -868,8 +868,8 @@ export default function WhyDifferent() {
               className="flex flex-col gap-2 text-center w-full"
             >
               <h3 className="text-[24px] font-medium leading-[1.1] text-white">
-                <span className="font-serif italic text-[#ffbc0e]">Capture</span>
-                {" "}the magic
+                Capture the{" "}
+                <span className="font-serif italic text-[#ffbc0e]">magic</span>
               </h3>
               <p className="text-[14px] font-normal leading-[1.3] text-[#999]">
                 {`Life moves fast. Your camera should keep up. We designed the AI camera system on XForge to instantly understand what you're shooting and make it look spectacular.`}
