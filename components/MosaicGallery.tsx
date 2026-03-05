@@ -47,8 +47,8 @@ function PhotoCard({ src, alt, className, objectPosition, sizes, parallaxRange =
       ref={ref}
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 2.4, ease: [0.05, 0.7, 0.1, 1], delay: index * 0.25 }}
+      viewport={{ once: true, margin: "0px" }}
+      transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1], delay: index * 0.12 }}
       {...hoverProps}
       className={`relative overflow-hidden rounded-[14px] sm:rounded-[18px] md:rounded-[20px] shadow-[0px_6px_6px_rgba(0,0,0,0.25)] cursor-pointer ${className}`}
       style={{ background: CARD_BG }}
