@@ -128,7 +128,7 @@ export default function MosaicGallery() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.05, margin: "100px 0px 0px 0px" }}
             transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-            className="col-span-2 relative overflow-hidden rounded-[20px] shadow-[0px_6px_6px_rgba(0,0,0,0.25)] flex items-center px-10"
+            className="col-span-2 relative overflow-hidden rounded-[20px] flex items-center px-10"
           >
             <p className="text-[46px] font-medium leading-[1.1]">
               <span className="text-[#707070]">Beautifully crafted and incredibly </span>
