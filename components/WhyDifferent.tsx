@@ -755,6 +755,29 @@ export default function WhyDifferent() {
             📸 CAM
           </FloatingBadge>
 
+          {/* 💎 — gap between chatbot and phone mockup, right edge */}
+          <FloatingBadge className="absolute z-10 opacity-40 !w-[32px]" delay={0.9} style={{ top: "38%", left: "96%" }}>
+            💎
+          </FloatingBadge>
+
+          {/* ⚙️ — bottom-left corner, below Feature 3 text */}
+          <FloatingBadge className="absolute z-10 opacity-35 !w-[32px]" delay={0.4} style={{ top: "92%", left: "3%" }}>
+            ⚙️
+          </FloatingBadge>
+
+          {/* 🟢 LIVE — gap between Feature 1 and chatbot, center-top */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 1.0 }}
+            className="badge-glitch absolute z-10 bg-[rgba(0,200,83,0.15)] border border-[#00c853]/40 rounded-[6px] px-[7px] py-[2px] flex items-center gap-1"
+            style={{ top: "5%", left: "46%", animationDelay: "6.5s" }}
+          >
+            <span className="inline-flex rounded-full h-[6px] w-[6px] bg-[#00c853]" />
+            <span className="font-mono text-[8px] text-[#00c853] font-medium">LIVE</span>
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -909,6 +932,34 @@ export default function WhyDifferent() {
           >
             📸 CAM
           </FloatingBadge>
+
+          <FloatingBadge
+            className="absolute z-10 opacity-40 !w-[32px]"
+            delay={0.9}
+            style={{ top: "48%", right: 4 }}
+          >
+            💎
+          </FloatingBadge>
+
+          <FloatingBadge
+            className="absolute z-10 opacity-35 !w-[32px]"
+            delay={0.4}
+            style={{ bottom: 80, left: 4 }}
+          >
+            ⚙️
+          </FloatingBadge>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 1.0 }}
+            className="badge-glitch absolute z-10 bg-[rgba(0,200,83,0.15)] border border-[#00c853]/40 rounded-[6px] px-[7px] py-[2px] flex items-center gap-1"
+            style={{ top: 85, right: 10, animationDelay: "6.5s" }}
+          >
+            <span className="inline-flex rounded-full h-[6px] w-[6px] bg-[#00c853]" />
+            <span className="font-mono text-[8px] text-[#00c853] font-medium">LIVE</span>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 10 }}
