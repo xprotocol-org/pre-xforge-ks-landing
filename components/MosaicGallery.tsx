@@ -45,10 +45,10 @@ function PhotoCard({ src, alt, className, objectPosition, sizes, parallaxRange =
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px" }}
-      transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1], delay: index * 0.12 }}
+      viewport={{ once: true, amount: 0.05, margin: "100px 0px 0px 0px" }}
+      transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
       {...hoverProps}
       className={`relative overflow-hidden rounded-[14px] sm:rounded-[18px] md:rounded-[20px] shadow-[0px_6px_6px_rgba(0,0,0,0.25)] cursor-pointer ${className}`}
       style={{ background: CARD_BG }}
