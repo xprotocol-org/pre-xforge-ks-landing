@@ -203,7 +203,7 @@ export default function MosaicGallery() {
             <PhotoCard src="/placeholders/carousel-6.webp" alt="XForge on desk" className="" objectPosition="center 50%" sizes="50vw" index={1} />
             <PhotoCard src="/placeholders/carousel-2.webp" alt="Rewards dashboard" className="" objectPosition="center center" sizes="50vw" index={2} />
             {/* Text card */}
-            <div className="relative overflow-hidden rounded-[9px] shadow-[0px_3px_3px_rgba(0,0,0,0.25)] flex items-center px-3">
+            <div className="relative overflow-hidden rounded-[9px] flex items-center px-3">
               <TypingReveal fontSize="text-[20px]" />
             </div>
             <PhotoCard src="/placeholders/carousel-8.webp" alt="Holding XForge" className="" objectPosition="65% 35%" sizes="50vw" index={4} />
