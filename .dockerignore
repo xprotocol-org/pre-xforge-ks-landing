@@ -1,0 +1,32 @@
+# Dependencies (installed inside container)
+node_modules
+
+# Build output (rebuilt inside container)
+.next
+out
+build
+
+# Environment files (passed at runtime via --env-file or -e)
+.env*
+
+# Runtime data
+data/
+
+# Version control
+.git
+.gitignore
+
+# IDE
+.cursor/
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Misc
+*.md
+*.log
+.vercel
+coverage/
