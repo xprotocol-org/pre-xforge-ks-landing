@@ -1,16 +1,13 @@
-// Email subscription API. Saves to local JSON (ephemeral on Vercel) and syncs to Mailchimp.
-// Requires: MAILCHIMP_API_KEY, MAILCHIMP_LIST_ID in .env.local
+// Email subscription API. Syncs to Mailchimp (persistent store) and backs up
+// to Cloudflare KV when the SUBSCRIBERS_KV binding is available.
+// Requires: MAILCHIMP_API_KEY, MAILCHIMP_LIST_ID in env / .dev.vars
 // Called by: Hero.tsx, EmailSubscription.tsx (MosaicGallery), Footer.tsx
-// Rate limited by IP (in-memory). See lib/rate-limit.ts for limits.
+// Rate limited by Cloudflare WAF rules (in-memory rate limiting doesn't work
+// on Workers — each invocation is isolated and geographically distributed).
 
 import { NextRequest, NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
-import { rateLimit } from "@/lib/rate-limit";
-
-// WARNING: On Vercel serverless, filesystem writes are ephemeral (lost on redeploy).
-// Mailchimp is the persistent store. This JSON is a local dev convenience + fallback.
-const DB_PATH = path.join(process.cwd(), "data", "subscribers.json");
+import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { upsertContact } from "@/lib/mailchimp";
 
 interface Subscriber {
   email: string;
@@ -19,49 +16,13 @@ interface Subscriber {
   userAgent?: string;
 }
 
-function readSubscribers(): Subscriber[] {
+async function getKV(): Promise<KVNamespace | null> {
   try {
-    const raw = fs.readFileSync(DB_PATH, "utf-8");
-    return JSON.parse(raw);
+    const { env } = await getCloudflareContext();
+    return (env as Record<string, unknown>).SUBSCRIBERS_KV as KVNamespace ?? null;
   } catch {
-    return [];
+    return null;
   }
-}
-
-function writeSubscribers(subscribers: Subscriber[]) {
-  fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
-  fs.writeFileSync(DB_PATH, JSON.stringify(subscribers, null, 2));
-}
-
-async function addToMailchimp(email: string) {
-  const apiKey = process.env.MAILCHIMP_API_KEY;
-  const listId = process.env.MAILCHIMP_LIST_ID;
-
-  if (!apiKey || !listId) return { skipped: true };
-
-  const dc = apiKey.split("-").pop();
-  const url = `https://${dc}.api.mailchimp.com/3.0/lists/${listId}/members`;
-
-  const res = await fetch(url, {
-    method: "POST",
-    headers: {
-      Authorization: `apikey ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email_address: email,
-      status: "subscribed",
-      tags: ["xforge-landing"],
-    }),
-  });
-
-  if (!res.ok) {
-    const body = await res.json();
-    if (body.title === "Member Exists") return { exists: true };
-    throw new Error(body.detail || "Mailchimp error");
-  }
-
-  return { success: true };
 }
 
 const VALID_SOURCES = ["hero", "how_it_works", "footer", "unknown"] as const;
@@ -76,26 +37,6 @@ function sanitizeSource(raw: unknown): string {
 
 export async function POST(req: NextRequest) {
   try {
-    const ip =
-      req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-      req.headers.get("x-real-ip") ||
-      "unknown";
-
-    const { allowed, remaining } = rateLimit(ip, {
-      maxRequests: 5,
-      windowMs: 60_000,
-    });
-
-    if (!allowed) {
-      return NextResponse.json(
-        { error: "Too many requests. Please try again later." },
-        {
-          status: 429,
-          headers: { "Retry-After": "60", "X-RateLimit-Remaining": "0" },
-        }
-      );
-    }
-
     const contentType = req.headers.get("content-type");
     if (!contentType?.includes("application/json")) {
       return NextResponse.json(
@@ -104,8 +45,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { email, source } = await req.json();
-    void remaining;
+    const { email, source } = (await req.json()) as { email?: string; source?: string };
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json(
@@ -118,31 +58,41 @@ export async function POST(req: NextRequest) {
     const userAgent = req.headers.get("user-agent") || undefined;
     const validatedSource = sanitizeSource(source);
 
-    const subscribers = readSubscribers();
-    const alreadyExists = subscribers.some(
-      (s) => s.email === normalizedEmail
-    );
-
-    if (!alreadyExists) {
-      subscribers.push({
-        email: normalizedEmail,
-        subscribedAt: new Date().toISOString(),
-        source: validatedSource,
-        userAgent,
-      });
-      writeSubscribers(subscribers);
+    // Back up to KV if the binding is available
+    let isNew = true;
+    const kv = await getKV();
+    if (kv) {
+      const existing = await kv.get(normalizedEmail);
+      isNew = !existing;
+      if (isNew) {
+        const subscriber: Subscriber = {
+          email: normalizedEmail,
+          subscribedAt: new Date().toISOString(),
+          source: validatedSource,
+          userAgent,
+        };
+        await kv.put(normalizedEmail, JSON.stringify(subscriber));
+      }
     }
 
-    let mailchimpResult: Record<string, unknown> = {};
+    // Mailchimp is the primary persistent store.
+    // Uses PUT (upsert) — safe to call for existing contacts.
+    let mailchimpResult: Record<string, unknown> | Awaited<ReturnType<typeof upsertContact>> = {};
     try {
-      mailchimpResult = await addToMailchimp(normalizedEmail);
+      mailchimpResult = await upsertContact({
+        email: normalizedEmail,
+        mergeFields: {
+          SOURCE: validatedSource,
+        },
+        tags: ["xforge-landing"],
+      });
     } catch {
       mailchimpResult = { error: "mailchimp_unavailable" };
     }
 
     return NextResponse.json({
       success: true,
-      isNew: !alreadyExists,
+      isNew,
       mailchimp: mailchimpResult,
     });
   } catch {
