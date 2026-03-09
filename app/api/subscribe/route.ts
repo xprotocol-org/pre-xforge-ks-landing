@@ -7,6 +7,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { upsertContact } from "@/lib/mailchimp";
 
 interface Subscriber {
   email: string;
@@ -22,37 +23,6 @@ async function getKV(): Promise<KVNamespace | null> {
   } catch {
     return null;
   }
-}
-
-async function addToMailchimp(email: string) {
-  const apiKey = process.env.MAILCHIMP_API_KEY;
-  const listId = process.env.MAILCHIMP_LIST_ID;
-
-  if (!apiKey || !listId) return { skipped: true };
-
-  const dc = apiKey.split("-").pop();
-  const url = `https://${dc}.api.mailchimp.com/3.0/lists/${listId}/members`;
-
-  const res = await fetch(url, {
-    method: "POST",
-    headers: {
-      Authorization: `apikey ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email_address: email,
-      status: "subscribed",
-      tags: ["xforge-landing"],
-    }),
-  });
-
-  if (!res.ok) {
-    const body = (await res.json()) as { title?: string; detail?: string };
-    if (body.title === "Member Exists") return { exists: true };
-    throw new Error(body.detail || "Mailchimp error");
-  }
-
-  return { success: true };
 }
 
 const VALID_SOURCES = ["hero", "how_it_works", "footer", "unknown"] as const;
@@ -105,11 +75,17 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Mailchimp is the primary persistent store
-    let mailchimpResult: Record<string, unknown> = {};
+    // Mailchimp is the primary persistent store.
+    // Uses PUT (upsert) — safe to call for existing contacts.
+    let mailchimpResult: Record<string, unknown> | Awaited<ReturnType<typeof upsertContact>> = {};
     try {
-      mailchimpResult = await addToMailchimp(normalizedEmail);
-      if (mailchimpResult.exists) isNew = false;
+      mailchimpResult = await upsertContact({
+        email: normalizedEmail,
+        mergeFields: {
+          SOURCE: validatedSource,
+        },
+        tags: ["xforge-landing"],
+      });
     } catch {
       mailchimpResult = { error: "mailchimp_unavailable" };
     }

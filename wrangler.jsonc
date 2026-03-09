@@ -1,7 +1,7 @@
 {
     "$schema": "node_modules/wrangler/config-schema.json",
     "main": ".open-next/worker.js",
-    "name": "xforge-landing",
+    "name": "xforge-ks-landing",
     "compatibility_date": "2024-12-30",
     "compatibility_flags": [
         // Enable Node.js API compatibility
@@ -19,14 +19,14 @@
         {
             "binding": "WORKER_SELF_REFERENCE",
             // Must match the "name" above
-            "service": "xforge-landing"
+            "service": "xforge-ks-landing"
         }
     ],
     "kv_namespaces": [
         {
-            // KV namespace for subscriber email backup (replaces local JSON file)
+            // KV namespace for subscriber email backup
             "binding": "SUBSCRIBERS_KV",
-            "id": "<KV_NAMESPACE_ID>"
+            "id": "ad54885333ad4056a9fcdc1f2abd3407"
         }
     ],
     // Uncomment to enable R2-based ISR caching
