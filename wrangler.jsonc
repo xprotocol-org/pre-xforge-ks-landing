@@ -36,9 +36,11 @@
     //     "bucket_name": "xforge-landing-cache"
     //   }
     // ],
-    "images": {
-        // Enable Cloudflare image optimization (replaces next/image optimizer)
-        // https://opennext.js.org/cloudflare/howtos/image
-        "binding": "IMAGES"
-    }
+    // Image optimization is disabled (unoptimized: true in next.config.ts).
+    // To re-enable with the IMAGES binding (requires Cloudflare Images
+    // to be enabled on the account), uncomment below and update next.config.ts:
+    // "images": {
+    //     "binding": "IMAGES"
+    // }
+    "vars": {}
 }
