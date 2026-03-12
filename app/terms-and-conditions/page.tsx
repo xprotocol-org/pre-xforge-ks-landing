@@ -41,17 +41,23 @@ export default function TermsAndConditionsPage() {
                     Terms &amp; Conditions
                 </h1>
 
-                <div className="text-[15px] leading-relaxed text-[#ccc]">
-                    <p>This page will be updated with our full Terms &amp; Conditions soon.</p>
-                    <p className="mt-4">
-                        For any questions, please contact us at{" "}
+                <div className="text-[15px] leading-relaxed text-[#ccc] space-y-6">
+                    <h2 className="text-xl font-semibold text-white">Refund Policy</h2>
+
+                    <h3 className="text-lg font-medium text-white">Overview</h3>
+
+                    <p>
+                        All reservation deposits are refundable at any time before the
+                        project goes into production. To receive your refund, simply
+                        email us at{" "}
                         <a
                             href="mailto:support@xforgephone.com"
                             className="text-xforge-gold hover:underline"
                         >
                             support@xforgephone.com
-                        </a>
-                        .
+                        </a>{" "}
+                        with the subject line: <strong className="text-white">Reservation Refund Request</strong>.
+                        Include your full name and email you used for the purchase.
                     </p>
                 </div>
 
