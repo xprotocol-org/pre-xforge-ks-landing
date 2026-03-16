@@ -25,9 +25,8 @@ export default function EmailSubscription() {
   return (
     <div className="w-full max-w-[360px] sm:max-w-[500px]">
       <div
-        className={`relative bg-xforge-input-bg border rounded-[20px] md:rounded-[12px] flex flex-col md:flex-row md:items-center p-1 md:pl-4 md:pr-2 md:py-2 gap-1 md:gap-0 w-full transition-colors duration-200 ${
-          showError ? "border-red-500 border-2" : "border-xforge-border"
-        }`}
+        className={`relative bg-xforge-input-bg border rounded-[20px] md:rounded-[12px] flex flex-col md:flex-row md:items-center p-1 md:pl-4 md:pr-2 md:py-2 gap-1 md:gap-0 w-full transition-colors duration-200 ${showError ? "border-red-500 border-2" : "border-xforge-border"
+          }`}
       >
         <div className="flex items-center justify-center h-[48px] md:h-auto md:flex-1 md:min-w-0">
           <input
@@ -37,7 +36,7 @@ export default function EmailSubscription() {
             onChange={(e) => setEmail(e.target.value)}
             onBlur={handleBlur}
             onKeyDown={handleKeyDown}
-            placeholder="name@domain.com"
+            placeholder="Enter email address"
             aria-label="Email address"
             aria-invalid={showError}
             className="bg-transparent text-base font-normal text-xforge-placeholder leading-[1.1] outline-none w-full text-center md:text-left"

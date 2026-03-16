@@ -1,7 +1,7 @@
 // Footer with email CTA, legal links, and pattern background.
 // Dependencies: hooks/useEmailSubscribe, lib/animations (S.btnGold, S.emailWrap), lib/utils
 // Connected to: /api/subscribe (email form), /reserve (redirect after submit)
-// Contains hardcoded links to /terms-and-conditions and /privacy-policy.
+// Contains hardcoded links to /terms-and-conditions.
 
 "use client";
 
@@ -83,7 +83,7 @@ export default function Footer() {
                   onChange={(e) => setEmail(e.target.value)}
                   onBlur={handleBlur}
                   onKeyDown={handleKeyDown}
-                  placeholder="name@domain.com"
+                  placeholder="Enter email address"
                   aria-label="Email address"
                   aria-invalid={showError}
                   className="bg-transparent text-base font-normal text-xforge-placeholder leading-[1.1] outline-none w-full text-center lg:text-left"
@@ -162,14 +162,6 @@ export default function Footer() {
             © 2026 XForge. All rights reserved.
           </p>
           <div className="flex items-center gap-5">
-            <a
-              href="https://kickstarter.xforgephone.com/privacy-policy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-normal hover:text-white transition-colors duration-200"
-            >
-              Privacy Policy
-            </a>
             <a
               href="https://kickstarter.xforgephone.com/terms-and-conditions"
               target="_blank"

@@ -50,7 +50,7 @@ export default function Hero() {
             const src = pickSource();
             setVideoSrc(src);
           }
-          video.play().catch(() => {});
+          video.play().catch(() => { });
         } else {
           video.pause();
         }
@@ -65,7 +65,7 @@ export default function Hero() {
   useEffect(() => {
     if (!videoSrc || !videoRef.current) return;
     videoRef.current.load();
-    videoRef.current.play().catch(() => {});
+    videoRef.current.play().catch(() => { });
   }, [videoSrc]);
 
   useEffect(() => {
@@ -157,9 +157,8 @@ export default function Hero() {
           >
             <div className="bg-white rounded-[16px] p-[6px] sm:p-2 shadow-[0px_1px_4px_0px_rgba(0,0,0,0.12)]">
               <div
-                className={`${S.emailWrap} flex items-center justify-between pl-3 sm:pl-4 pr-1 py-1 h-[40px] sm:h-[44px] ${
-                    showError ? "border-red-500 border-2" : "border-xforge-border"
-                }`}
+                className={`${S.emailWrap} flex items-center justify-between pl-3 sm:pl-4 pr-1 py-1 h-[40px] sm:h-[44px] ${showError ? "border-red-500 border-2" : "border-xforge-border"
+                  }`}
               >
                 <input
                   ref={inputRef}
@@ -168,7 +167,7 @@ export default function Hero() {
                   onChange={(e) => setEmail(e.target.value)}
                   onBlur={handleBlur}
                   onKeyDown={handleKeyDown}
-                  placeholder="name@domain.com"
+                  placeholder="Enter email address"
                   aria-label="Email address"
                   aria-invalid={showError}
                   className={`${S.emailField} text-base font-normal`}
