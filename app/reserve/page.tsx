@@ -14,6 +14,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { S } from "@/lib/animations";
 import { trackReserveClick, trackKickstarterClick } from "@/lib/analytics";
 import { KICKSTARTER_URL } from "@/lib/utils";
+import { useIsNewDomain } from "@/lib/use-domain";
 
 const FAQ_ITEMS = [
   {
@@ -84,6 +85,7 @@ export default function ReservePage() {
 }
 
 function ProductImage() {
+  const isNew = useIsNewDomain();
   return (
     <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[550px] rounded-[12px] overflow-hidden bg-[#050505]">
       <Image
@@ -94,10 +96,10 @@ function ProductImage() {
         priority
       />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black" />
-      <div className="absolute bottom-5 sm:bottom-8 left-5 sm:left-8 z-10 flex flex-col gap-3 sm:gap-4">
+      <div className="absolute bottom-5 sm:bottom-8 left-5 sm:left-8 z-10 flex flex-col items-start gap-3 sm:gap-4">
         <Image
-          src="/placeholders/footer-logo.svg"
-          alt="XForge × Kickstarter"
+          src={isNew ? "/placeholders/xforge-logo-light.svg" : "/placeholders/footer-logo.svg"}
+          alt={isNew ? "XForge" : "XForge × Kickstarter"}
           width={200}
           height={15}
           className="h-[14px] sm:h-[18px] w-auto"
@@ -160,6 +162,7 @@ function GuaranteeCards() {
 }
 
 function ReserveForm() {
+  const isNew = useIsNewDomain();
   const [reserving, setReserving] = useState(false);
 
   async function handleReserve() {
@@ -182,18 +185,18 @@ function ReserveForm() {
   return (
     <div className="flex flex-col gap-[16px] items-center lg:sticky lg:top-[60px]">
       <div className="w-full bg-white border border-xforge-border rounded-[16px] px-[16px] py-[20px] shadow-[0px_0px_0px_1px_#fafafa,0px_1px_2px_0px_rgba(0,0,0,0.3)] flex flex-col gap-[24px] overflow-hidden">
-        {/* Logo */}
+        {/* Logo (XForge-only on new domain) */}
         <Image
-          src="/placeholders/nav-logos.svg"
-          alt="XForge × Kickstarter"
-          width={213}
+          src={isNew ? "/placeholders/xforge-logo-dark.svg" : "/placeholders/nav-logos.svg"}
+          alt={isNew ? "XForge" : "XForge × Kickstarter"}
+          width={isNew ? 68 : 213}
           height={16}
-          className="h-[16px] w-auto"
+          className="h-[16px] w-auto self-center lg:self-start"
         />
 
         {/* Discount info */}
-        <div className="flex flex-col gap-[8px]">
-          <h1 className="text-[20px] sm:text-[24px] font-semibold leading-[1.1] text-[#050505] max-w-[364px]">
+        <div className="flex flex-col gap-[8px] items-center lg:items-start">
+          <h1 className="text-[20px] sm:text-[24px] font-semibold leading-[1.1] text-[#050505] max-w-[364px] text-center lg:text-left">
             Reserve your 40% Special Discount
           </h1>
           <p className="text-[14px] sm:text-[16px] font-normal leading-[1.3] text-[#707070]">
@@ -318,9 +321,7 @@ function ReserveForm() {
       <p className="text-[14px] font-normal leading-[1.3] text-[#050505] text-center">
         By reserving, you accept the{" "}
         <Link
-          href="https://kickstarter.xforgephone.com/terms-and-conditions"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/terms-and-conditions"
           className="underline"
         >
           Terms & Conditions

@@ -10,8 +10,10 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { S } from "@/lib/animations";
 import { useEmailSubscribe } from "@/hooks/useEmailSubscribe";
+import { useIsNewDomain } from "@/lib/use-domain";
 
 export default function Footer() {
+  const isNew = useIsNewDomain();
   const {
     email,
     setEmail,
@@ -45,6 +47,7 @@ export default function Footer() {
         {/* Top section */}
         <div className="flex flex-col items-center gap-10 lg:gap-[84px] w-full">
           {/* Logo */}
+          {/* XForge × Kickstarter logo (XForge-only on new domain) */}
           <motion.div
             initial={{ opacity: 0, y: 35 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -52,10 +55,10 @@ export default function Footer() {
             transition={{ duration: 1.2, ease: [0.12, 1, 0.2, 1] }}
           >
             <Image
-              src="/placeholders/footer-logo.svg"
-              alt="XForge × Kickstarter"
-              width={424}
-              height={32}
+              src={isNew ? "/placeholders/xforge-logo-light.svg" : "/placeholders/footer-logo.svg"}
+              alt={isNew ? "XForge" : "XForge × Kickstarter"}
+              width={isNew ? 118 : 424}
+              height={isNew ? 28 : 32}
               className="max-w-[280px] sm:max-w-[313px] lg:max-w-full h-auto"
             />
           </motion.div>

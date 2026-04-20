@@ -1,7 +1,10 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import { Inter_Tight, IBM_Plex_Serif, Space_Grotesk } from "next/font/google";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import { DomainProvider } from "@/components/DomainProvider";
 import { SITE_URL } from "@/lib/utils";
+import { isNewDomainServer } from "@/lib/domain";
 import "./globals.css";
 
 const SITE_NAME = "XForge Phone";
@@ -32,84 +35,98 @@ export const viewport: Viewport = {
   themeColor: "#050505",
 };
 
-export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  title: {
-    default: "Meet XForge. The AI smartphone that pays it forward.",
-    template: `%s | ${SITE_NAME}`,
-  },
-  description:
-    "XForge is a premium Android smartphone powered by on-device AI built to reward you.",
-  keywords: [
-    "XForge",
-    "XForge Phone",
-    "smartphone",
-    "decentralized",
-    "DePIN",
-    "crypto phone",
-    "passive income phone",
-    "earn rewards",
-    "blockchain phone",
-    "Kickstarter phone",
-    "Web3 phone",
-    "mining phone",
-  ],
-  authors: [{ name: SITE_NAME, url: SITE_URL }],
-  creator: SITE_NAME,
-  publisher: SITE_NAME,
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+const OG_IMAGE_OLD = "/placeholders/reserve-product.webp";
+// TODO: Replace with an OG image that has no Kickstarter branding.
+const OG_IMAGE_NEW = "/placeholders/reserve-product.webp";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const headersList = await headers();
+  const host = headersList.get("host");
+  const isNew = isNewDomainServer(host);
+  const ogImage = isNew ? OG_IMAGE_NEW : OG_IMAGE_OLD;
+
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: {
+      default: "Meet XForge. The AI smartphone that pays it forward.",
+      template: `%s | ${SITE_NAME}`,
+    },
+    description:
+      "XForge is a premium Android smartphone powered by on-device AI built to reward you.",
+    keywords: [
+      "XForge",
+      "XForge Phone",
+      "smartphone",
+      "decentralized",
+      "DePIN",
+      "crypto phone",
+      "passive income phone",
+      "earn rewards",
+      "blockchain phone",
+      ...(isNew ? [] : ["Kickstarter phone"]),
+      "Web3 phone",
+      "mining phone",
+    ],
+    authors: [{ name: SITE_NAME, url: SITE_URL }],
+    creator: SITE_NAME,
+    publisher: SITE_NAME,
+    robots: {
       index: true,
       follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: SITE_URL,
-    siteName: SITE_NAME,
-    title: "Meet XForge. The AI smartphone that pays it forward.",
-    description:
-      "XForge is a premium Android smartphone powered by on-device AI built to reward you.",
-    images: [
-      {
-        url: "/placeholders/reserve-product.webp",
-        width: 1200,
-        height: 630,
-        alt: "XForge Phone",
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
       },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Meet XForge. The AI smartphone that pays it forward.",
-    description:
-      "XForge is a premium Android smartphone powered by on-device AI built to reward you.",
-    images: ["/placeholders/reserve-product.webp"],
-  },
-  alternates: {
-    canonical: SITE_URL,
-  },
-  category: "technology",
-};
+    },
+    openGraph: {
+      type: "website",
+      locale: "en_US",
+      url: SITE_URL,
+      siteName: SITE_NAME,
+      title: "Meet XForge. The AI smartphone that pays it forward.",
+      description:
+        "XForge is a premium Android smartphone powered by on-device AI built to reward you.",
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: "XForge Phone",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Meet XForge. The AI smartphone that pays it forward.",
+      description:
+        "XForge is a premium Android smartphone powered by on-device AI built to reward you.",
+      images: [ogImage],
+    },
+    alternates: {
+      canonical: SITE_URL,
+    },
+    category: "technology",
+  };
+}
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await headers();
+  const isNew = isNewDomainServer(headersList.get("host"));
+
   return (
     <html lang="en" className="scroll-smooth">
       <body
         className={`${interTight.variable} ${ibmPlexSerif.variable} ${spaceGrotesk.variable} antialiased font-sans`}
       >
         <GoogleAnalytics />
-        {children}
+        <DomainProvider isNew={isNew}>{children}</DomainProvider>
       </body>
     </html>
   );

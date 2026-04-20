@@ -10,8 +10,15 @@ import { motion } from "framer-motion";
 import { S } from "@/lib/animations";
 import { KICKSTARTER_URL } from "@/lib/utils";
 import { trackKickstarterClick } from "@/lib/analytics";
+import { useIsNewDomain } from "@/lib/use-domain";
+
+const VIP_GROUP_URL = "https://chat.whatsapp.com/Lb8Qe7sNYRZ7QatHAZyle0";
 
 export default function ThankYouPage() {
+  const isNew = useIsNewDomain();
+  const ctaLabel = isNew ? "Join VIP Group" : "Notify me on Kickstarter";
+  const ctaHref = isNew ? VIP_GROUP_URL : KICKSTARTER_URL;
+
   return (
     <main className="relative w-full min-h-screen bg-xforge-black overflow-hidden flex items-center justify-center">
       {/* Background "Thank you" ghost text — matches Figma IBM Plex Serif SemiBold Italic */}
@@ -61,10 +68,10 @@ export default function ThankYouPage() {
         {/* Notify me on Kickstarter button — reuses S.btnNotify from lib/animations */}
         <div className="w-full max-w-[419px] flex flex-col items-center gap-[8px] mb-[28px]">
           <motion.a
-            href={KICKSTARTER_URL}
+            href={ctaHref}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackKickstarterClick("thank_you_page")}
+            onClick={() => !isNew && trackKickstarterClick("thank_you_page")}
             whileHover="wiggle"
             whileTap={{
               scale: 0.97,
@@ -78,29 +85,31 @@ export default function ThankYouPage() {
               transition={{ duration: 0.5 }}
               style={{ display: "inline-block", transformOrigin: "center bottom" }}
             >
-              Notify me on Kickstarter
+              {ctaLabel}
             </motion.span>
-            <motion.div
-              variants={{ wiggle: { rotate: [0, -14, 12, -10, 8, -4, 0] } }}
-              transition={{ duration: 0.5 }}
-            >
-              <Image
-                src="/placeholders/icon-notification.svg"
-                alt=""
-                width={16}
-                height={16}
-                aria-hidden="true"
-              />
-            </motion.div>
+            {!isNew && (
+              <motion.div
+                variants={{ wiggle: { rotate: [0, -14, 12, -10, 8, -4, 0] } }}
+                transition={{ duration: 0.5 }}
+              >
+                <Image
+                  src="/placeholders/icon-notification.svg"
+                  alt=""
+                  width={16}
+                  height={16}
+                  aria-hidden="true"
+                />
+              </motion.div>
+            )}
           </motion.a>
         </div>
 
-        {/* XForge × Kickstarter logos — reuses nav-logos.svg */}
+        {/* XForge × Kickstarter logos (XForge-only on new domain) */}
         <div className="flex items-center justify-center">
           <Image
-            src="/placeholders/nav-logos.svg"
-            alt="XForge × Kickstarter"
-            width={239}
+            src={isNew ? "/placeholders/xforge-logo-dark.svg" : "/placeholders/nav-logos.svg"}
+            alt={isNew ? "XForge" : "XForge × Kickstarter"}
+            width={isNew ? 68 : 239}
             height={15}
             className="h-[15px] w-auto"
           />

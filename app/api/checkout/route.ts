@@ -4,10 +4,22 @@
 //
 // Uses POST to prevent accidental triggers from prefetchers, crawlers,
 // and link preview bots that would fire on a GET-based redirect.
+//
+// Domain-aware: new domain uses a separate Stripe link.
 
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { isNewDomainServer } from "@/lib/domain";
 
-export async function POST() {
+const NEW_DOMAIN_STRIPE_URL =
+  "https://buy.stripe.com/7sYcN7e7s32S1Pkd4U2wU05";
+
+export async function POST(request: NextRequest) {
+  const host = request.headers.get("host");
+
+  if (isNewDomainServer(host)) {
+    return NextResponse.json({ url: NEW_DOMAIN_STRIPE_URL });
+  }
+
   const checkoutUrl = process.env.STRIPE_CHECKOUT_URL;
 
   if (!checkoutUrl) {
