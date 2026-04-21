@@ -184,6 +184,7 @@ const DESIRED_MERGE_FIELDS = [
   { tag: "RESV_AMT", name: "Reservation Amount", type: "number" },
   { tag: "SOURCE", name: "Signup Source", type: "text" },
   { tag: "ORIGIN", name: "Origin", type: "text" },
+  { tag: "DOMAIN", name: "Domain Name", type: "text" },
 ] as const;
 
 /**

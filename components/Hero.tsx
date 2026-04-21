@@ -97,13 +97,14 @@ export default function Hero() {
       />
 
       {/* Background Video — covers the fallback image once it plays */}
+      {/* You can change object-center to object-top or object-bottom to adjust the focal point of the crop */}
       <video
         ref={videoRef}
         muted
         loop
         playsInline
         preload="none"
-        className={`absolute inset-0 w-full h-full z-[1] ${isNew ? "object-cover" : "object-contain"}`}
+        className="absolute inset-0 w-full h-full z-[1] object-cover object-center"
         aria-hidden="true"
       >
         {videoSrc && <source src={videoSrc} type="video/webm" />}

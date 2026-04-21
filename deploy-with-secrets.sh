@@ -38,6 +38,9 @@ echo "✅ MAILCHIMP_LIST_ID set"
 echo "https://buy.stripe.com/5kQfZj5AW1YO0Lg8OE2wU02" | npx wrangler secret put STRIPE_CHECKOUT_URL
 echo "✅ STRIPE_CHECKOUT_URL set"
 
+echo "https://buy.stripe.com/7sYcN7e7s32S1Pkd4U2wU05" | npx wrangler secret put NEW_DOMAIN_STRIPE_URL
+echo "✅ NEW_DOMAIN_STRIPE_URL set"
+
 echo "$XFORGE_KICKSTARTER_ADMIN_API_KEY" | npx wrangler secret put ADMIN_API_KEY
 echo "✅ ADMIN_API_KEY set"
 
@@ -46,6 +49,7 @@ echo "✅ NEXT_PUBLIC_GA_MEASUREMENT_ID set"
 
 echo "https://kickstarter.xforgephone.com" | npx wrangler secret put NEXT_PUBLIC_SITE_URL
 echo "✅ NEXT_PUBLIC_SITE_URL set"
+
 
 echo ""
 echo "🎉 All secrets set! Now deploying..."

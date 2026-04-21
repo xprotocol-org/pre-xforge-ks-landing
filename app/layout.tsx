@@ -4,7 +4,7 @@ import { Inter_Tight, IBM_Plex_Serif, Space_Grotesk } from "next/font/google";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { DomainProvider } from "@/components/DomainProvider";
 import { SITE_URL } from "@/lib/utils";
-import { isNewDomainServer } from "@/lib/domain";
+import { isNewDomainServer, RESERVE_DOMAIN } from "@/lib/domain";
 import "./globals.css";
 
 const SITE_NAME = "XForge Phone";
@@ -45,8 +45,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const isNew = isNewDomainServer(host);
   const ogImage = isNew ? OG_IMAGE_NEW : OG_IMAGE_OLD;
 
+  const baseUrl = isNew ? `https://${RESERVE_DOMAIN}` : SITE_URL;
+
   return {
-    metadataBase: new URL(SITE_URL),
+    metadataBase: new URL(baseUrl),
     title: {
       default: "Meet XForge. The AI smartphone that pays it forward.",
       template: `%s | ${SITE_NAME}`,

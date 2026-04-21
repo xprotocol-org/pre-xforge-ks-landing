@@ -150,7 +150,7 @@ Where to update key values:
 | **Notification bar text** | `components/Hero.tsx` | Search for "Launching soon" |
 | **Robots config** | `app/robots.ts` | `robots()` function |
 | **Sitemap URLs** | `app/sitemap.ts` | `sitemap()` function |
-| **Stripe checkout URL** | `.env.local` | `STRIPE_CHECKOUT_URL` env var |
+| **Stripe checkout URL** | `.env.local` | `STRIPE_CHECKOUT_URL` and `NEW_DOMAIN_STRIPE_URL` env vars |
 | **Privacy/Terms URLs** | `components/Footer.tsx` + `app/reserve/page.tsx` | Hardcoded links |
 | **Support email** | `app/reserve/page.tsx` | `mailto:support@xforgephone.com` |
 
@@ -215,7 +215,7 @@ Where to update key values:
 |----------|-------|
 | File | `app/api/checkout/route.ts` |
 | Purpose | Redirect to Stripe Checkout |
-| Env vars | `STRIPE_CHECKOUT_URL` |
+| Env vars | `STRIPE_CHECKOUT_URL`, `NEW_DOMAIN_STRIPE_URL` |
 | Side effects | 307 redirect |
 
 ---
@@ -479,6 +479,7 @@ ADMIN_API_KEY=your-secret-admin-key
 
 # Stripe Checkout (server-only)
 STRIPE_CHECKOUT_URL=https://checkout.stripe.com/c/pay/cs_live_xxx
+NEW_DOMAIN_STRIPE_URL=https://checkout.stripe.com/c/pay/cs_live_yyy
 ```
 
 ### Variable Scope
@@ -490,6 +491,7 @@ STRIPE_CHECKOUT_URL=https://checkout.stripe.com/c/pay/cs_live_xxx
 | `MAILCHIMP_LIST_ID` | Server only | Internal config |
 | `ADMIN_API_KEY` | Server only | Secret — protects admin endpoint |
 | `STRIPE_CHECKOUT_URL` | Server only | Checkout URL should be server-controlled |
+| `NEW_DOMAIN_STRIPE_URL` | Server only | Separate checkout URL for the new domain |
 
 **Critical rule:** Never prefix secret keys with `NEXT_PUBLIC_`. They will be bundled into client JavaScript and exposed to anyone viewing source.
 
