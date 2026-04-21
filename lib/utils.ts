@@ -7,7 +7,8 @@ export function isValidEmail(email: string): boolean {
 // Used in: layout.tsx, page.tsx (JSON-LD), sitemap.ts, robots.ts, reserve/layout.tsx
 // Validated with URL.canParse() so placeholder values (e.g. "CHANGE_ME") don't
 // crash the build when layout.tsx does `new URL(SITE_URL)`.
-const DEFAULT_SITE_URL = "https://kickstarter.xforgephone.com";
+export const KICKSTARTER_DOMAIN = process.env.KICKSTARTER_DOMAIN || "kickstarter.xforgephone.com";
+const DEFAULT_SITE_URL = `https://${KICKSTARTER_DOMAIN}`;
 const envUrl = process.env.NEXT_PUBLIC_SITE_URL;
 export const SITE_URL =
   envUrl && URL.canParse(envUrl) ? envUrl : DEFAULT_SITE_URL;

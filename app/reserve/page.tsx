@@ -205,19 +205,21 @@ function ReserveForm() {
         </div>
 
         {/* Launch info */}
-        <div className="flex items-center gap-[8px]">
-          <Image
-            src="/placeholders/icon-launch.svg"
-            alt=""
-            width={16}
-            height={16}
-            className="shrink-0"
-            aria-hidden="true"
-          />
-          <p className="text-[14px] sm:text-[16px] font-normal leading-[1.3] text-[#050505]">
-            Launching soon on Kickstarter
-          </p>
-        </div>
+        {!isNew && (
+          <div className="flex items-center gap-[8px]">
+            <Image
+              src="/placeholders/icon-launch.svg"
+              alt=""
+              width={16}
+              height={16}
+              className="shrink-0"
+              aria-hidden="true"
+            />
+            <p className="text-[14px] sm:text-[16px] font-normal leading-[1.3] text-[#050505]">
+              Launching soon on Kickstarter
+            </p>
+          </div>
+        )}
 
         {/* Price */}
         <div className="flex items-center gap-[8px] sm:gap-[12px] flex-wrap">
@@ -261,35 +263,37 @@ function ReserveForm() {
             )}
           </motion.button>
 
-          <motion.a
-            href={KICKSTARTER_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => trackKickstarterClick("reserve_page")}
-            whileHover="wiggle"
-            whileTap={{ scale: 0.97, boxShadow: "0px 0px 14px 3px rgba(200,200,200,0.4), 0px 0px 0px 1px #f5f5f5, 0px 1px 2px 0px rgba(0,0,0,0.3)" }}
-            className={`${S.btnNotify} flex items-center justify-center gap-[8px] h-[44px] w-full rounded-[12px] text-[14px] sm:text-[16px] font-medium hover:scale-[1.04]`}
-          >
-            <motion.span
-              variants={{ wiggle: { rotate: [0, -3, 3, -2, 1.5, 0] } }}
-              transition={{ duration: 0.5 }}
-              style={{ display: "inline-block", transformOrigin: "center bottom" }}
+          {!isNew && (
+            <motion.a
+              href={KICKSTARTER_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackKickstarterClick("reserve_page")}
+              whileHover="wiggle"
+              whileTap={{ scale: 0.97, boxShadow: "0px 0px 14px 3px rgba(200,200,200,0.4), 0px 0px 0px 1px #f5f5f5, 0px 1px 2px 0px rgba(0,0,0,0.3)" }}
+              className={`${S.btnNotify} flex items-center justify-center gap-[8px] h-[44px] w-full rounded-[12px] text-[14px] sm:text-[16px] font-medium hover:scale-[1.04]`}
             >
-              Notify me
-            </motion.span>
-            <motion.div
-              variants={{ wiggle: { rotate: [0, -14, 12, -10, 8, -4, 0] } }}
-              transition={{ duration: 0.5 }}
-            >
-              <Image
-                src="/placeholders/icon-notification.svg"
-                alt=""
-                width={20}
-                height={20}
-                aria-hidden="true"
-              />
-            </motion.div>
-          </motion.a>
+              <motion.span
+                variants={{ wiggle: { rotate: [0, -3, 3, -2, 1.5, 0] } }}
+                transition={{ duration: 0.5 }}
+                style={{ display: "inline-block", transformOrigin: "center bottom" }}
+              >
+                Notify me
+              </motion.span>
+              <motion.div
+                variants={{ wiggle: { rotate: [0, -14, 12, -10, 8, -4, 0] } }}
+                transition={{ duration: 0.5 }}
+              >
+                <Image
+                  src="/placeholders/icon-notification.svg"
+                  alt=""
+                  width={20}
+                  height={20}
+                  aria-hidden="true"
+                />
+              </motion.div>
+            </motion.a>
+          )}
 
           {/* Secure checkout */}
           <div className="flex items-center justify-center gap-[6px] sm:gap-[8px] flex-wrap">

@@ -42,5 +42,8 @@
     // "images": {
     //     "binding": "IMAGES"
     // }
-    "vars": {}
+    "vars": {
+        "KICKSTARTER_DOMAIN": "kickstarter.xforgephone.com",
+        "RESERVE_DOMAIN": "reserve.xforgephone.com"
+    }
 }

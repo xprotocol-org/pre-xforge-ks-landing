@@ -10,14 +10,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isNewDomainServer } from "@/lib/domain";
 
-const NEW_DOMAIN_STRIPE_URL =
-  "https://buy.stripe.com/7sYcN7e7s32S1Pkd4U2wU05";
-
 export async function POST(request: NextRequest) {
   const host = request.headers.get("host");
 
   if (isNewDomainServer(host)) {
-    return NextResponse.json({ url: NEW_DOMAIN_STRIPE_URL });
+    const newDomainCheckoutUrl = process.env.NEW_DOMAIN_STRIPE_URL;
+
+    if (!newDomainCheckoutUrl) {
+      return NextResponse.json(
+        { error: "New domain checkout not configured" },
+        { status: 503 }
+      );
+    }
+
+    return NextResponse.json({ url: newDomainCheckoutUrl });
   }
 
   const checkoutUrl = process.env.STRIPE_CHECKOUT_URL;

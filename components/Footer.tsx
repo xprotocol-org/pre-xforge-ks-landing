@@ -166,9 +166,7 @@ export default function Footer() {
           </p>
           <div className="flex items-center gap-5">
             <a
-              href="https://kickstarter.xforgephone.com/terms-and-conditions"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/terms-and-conditions"
               className="font-normal hover:text-white transition-colors duration-200"
             >
               Refund Policy

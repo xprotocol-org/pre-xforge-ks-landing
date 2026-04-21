@@ -39,10 +39,11 @@ export function useEmailSubscribe(source: string): UseEmailSubscribeReturn {
     }
     setSubmitting(true);
     try {
+      const domain = window.location.hostname;
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, source }),
+        body: JSON.stringify({ email, source, domain }),
       });
       if (!res.ok) throw new Error("Subscription failed");
       trackEmailSubmit(source);

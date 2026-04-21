@@ -13,6 +13,7 @@ interface Subscriber {
   email: string;
   subscribedAt: string;
   source?: string;
+  domain?: string;
   userAgent?: string;
 }
 
@@ -45,7 +46,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { email, source } = (await req.json()) as { email?: string; source?: string };
+    const { email, source, domain } = (await req.json()) as { email?: string; source?: string; domain?: string };
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json(
@@ -57,6 +58,7 @@ export async function POST(req: NextRequest) {
     const normalizedEmail = email.toLowerCase().trim();
     const userAgent = req.headers.get("user-agent") || undefined;
     const validatedSource = sanitizeSource(source);
+    const validatedDomain = domain ? domain.trim().toLowerCase().slice(0, 100) : "unknown";
 
     // Back up to KV if the binding is available
     let isNew = true;
@@ -69,6 +71,7 @@ export async function POST(req: NextRequest) {
           email: normalizedEmail,
           subscribedAt: new Date().toISOString(),
           source: validatedSource,
+          domain: validatedDomain,
           userAgent,
         };
         await kv.put(normalizedEmail, JSON.stringify(subscriber));
@@ -86,6 +89,7 @@ export async function POST(req: NextRequest) {
         mergeFields: {
           SOURCE: validatedSource,
           ORIGIN: "self-hosted",
+          DOMAIN: validatedDomain,
         },
         tags: ["xforge-landing"],
       });
