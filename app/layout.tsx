@@ -35,15 +35,10 @@ export const viewport: Viewport = {
   themeColor: "#050505",
 };
 
-const OG_IMAGE_OLD = "/placeholders/reserve-product.webp";
-// TODO: Replace with an OG image that has no Kickstarter branding.
-const OG_IMAGE_NEW = "/placeholders/reserve-product.webp";
-
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();
   const host = headersList.get("host");
   const isNew = isNewDomainServer(host);
-  const ogImage = isNew ? OG_IMAGE_NEW : OG_IMAGE_OLD;
 
   const baseUrl = isNew ? `https://${RESERVE_DOMAIN}` : SITE_URL;
 
@@ -91,21 +86,12 @@ export async function generateMetadata(): Promise<Metadata> {
       title: "Meet XForge. The AI smartphone that pays it forward.",
       description:
         "XForge is a premium Android smartphone powered by on-device AI built to reward you.",
-      images: [
-        {
-          url: ogImage,
-          width: 1200,
-          height: 630,
-          alt: "XForge Phone",
-        },
-      ],
     },
     twitter: {
       card: "summary_large_image",
       title: "Meet XForge. The AI smartphone that pays it forward.",
       description:
         "XForge is a premium Android smartphone powered by on-device AI built to reward you.",
-      images: [ogImage],
     },
     alternates: {
       canonical: SITE_URL,
