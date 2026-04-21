@@ -1,26 +1,32 @@
 /* eslint-disable @next/next/no-img-element -- next/og Satori markup; not browser DOM */
 import { ImageResponse } from "next/og";
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
+import { Buffer } from "node:buffer";
 
 export const ogShareSize = { width: 1200, height: 630 } as const;
 export const ogShareAlt = "XForge Phone — AI smartphone that pays it forward";
 
 /**
- * Social preview image: product photo + XForge wordmark + headline (no Kickstarter).
+ * Social preview image: product photo + XForge wordmark + headline (conditionally add Kickstarter branding).
  * Background is `og-share-background.png` (1200×630 export from reserve-photo) — Satori
  * does not reliably decode WebP in img elements during OG generation.
  */
-export async function createOgShareImageResponse(): Promise<ImageResponse> {
-  const bgPath = join(process.cwd(), "public/placeholders/og-share-background.png");
-  const logoPath = join(process.cwd(), "public/placeholders/xforge-logo-light.svg");
+export async function createOgShareImageResponse(isReserve: boolean = false): Promise<ImageResponse> {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://reserve.xforgephone.com";
+  const bgUrl = new URL("/placeholders/og-share-background.png", baseUrl).toString();
+  const logoUrl = new URL("/placeholders/xforge-logo-light.svg", baseUrl).toString();
 
-  const [bgBuf, logoSvg] = await Promise.all([
-    readFile(bgPath),
-    readFile(logoPath, "utf8"),
+  const [bgRes, logoRes] = await Promise.all([
+    fetch(bgUrl),
+    fetch(logoUrl),
   ]);
 
-  const bgSrc = `data:image/png;base64,${bgBuf.toString("base64")}`;
+  const [bgArr, logoSvg] = await Promise.all([
+    bgRes.arrayBuffer(),
+    logoRes.text(),
+  ]);
+
+  const bgBase64 = Buffer.from(bgArr).toString("base64");
+  const bgSrc = `data:image/png;base64,${bgBase64}`;
   const logoSrc = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(logoSvg)}`;
 
   return new ImageResponse(
@@ -110,6 +116,20 @@ export async function createOgShareImageResponse(): Promise<ImageResponse> {
               >
                 Pays It Forward
               </span>
+              {isReserve ? null : (
+                <span
+                  style={{
+                    marginTop: 16,
+                    fontSize: 28,
+                    fontWeight: 600,
+                    color: "#05ce78",
+                    fontFamily: "system-ui, sans-serif",
+                    letterSpacing: "0.05em",
+                  }}
+                >
+                  LAUNCHING SOON ON KICKSTARTER
+                </span>
+              )}
             </div>
           </div>
         </div>

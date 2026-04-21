@@ -86,12 +86,18 @@ export async function generateMetadata(): Promise<Metadata> {
       title: "Meet XForge. The AI smartphone that pays it forward.",
       description:
         "XForge is a premium Android smartphone powered by on-device AI built to reward you.",
+      images: [
+        {
+          url: isNew ? "/reserve/opengraph-image" : "/ks-og/opengraph-image",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: "Meet XForge. The AI smartphone that pays it forward.",
       description:
         "XForge is a premium Android smartphone powered by on-device AI built to reward you.",
+      images: [isNew ? "/reserve/twitter-image" : "/ks-og/twitter-image"],
     },
     alternates: {
       canonical: SITE_URL,

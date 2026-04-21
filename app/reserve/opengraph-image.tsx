@@ -7,5 +7,5 @@ export const contentType = "image/png";
 export const runtime = "nodejs";
 
 export default async function Image() {
-  return createOgShareImageResponse();
+  return createOgShareImageResponse(true);
 }
