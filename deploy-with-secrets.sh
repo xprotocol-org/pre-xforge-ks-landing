@@ -72,4 +72,4 @@ echo ""
 echo "🎉 All secrets verified! Now deploying..."
 echo ""
 
-npm run deploy
+npm run opennextjs-deploy
