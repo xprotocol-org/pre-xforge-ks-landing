@@ -13,13 +13,14 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { S } from "@/lib/animations";
 import { useEmailSubscribe } from "@/hooks/useEmailSubscribe";
-import { useIsNewDomain } from "@/lib/use-domain";
+import { useIsReserveDomain, useDomainConfig } from "@/lib/use-domain";
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoSrc, setVideoSrc] = useState<string | null>(null);
-  const isNew = useIsNewDomain();
+  const isReserve = useIsReserveDomain();
+  const config = useDomainConfig();
 
   const {
     email,
@@ -123,7 +124,7 @@ export default function Hero() {
       <div className="absolute bottom-0 left-0 right-0 h-[4px] bg-black z-20 translate-y-[2px]" />
 
       {/* Notification Bar — overlaid on top of video (hidden on new domain) */}
-      {!isNew && (
+      {!isReserve && (
         <div className="absolute top-0 left-0 right-0 z-10 w-full bg-[#291d00]/90 backdrop-blur-sm flex items-center justify-center px-4 py-3">
           <p className="text-xforge-gold text-[14px] sm:text-sm lg:text-base font-normal leading-[1.1] text-center">
             Launching soon on Kickstarter • Early-backer perks
@@ -139,8 +140,8 @@ export default function Hero() {
             {/* XForge × Kickstarter logos (XForge-only on new domain) */}
             <div className="relative w-[200px] h-[15px] sm:w-[320px] sm:h-[24px] lg:w-[424px] lg:h-[32px]">
               <Image
-                src={isNew ? "/placeholders/xforge-logo-light.svg" : "/placeholders/footer-logo.svg"}
-                alt={isNew ? "XForge" : "XForge × Kickstarter"}
+                src={isReserve ? "/placeholders/xforge-logo-light.svg" : "/placeholders/footer-logo.svg"}
+                alt={isReserve ? "XForge" : "XForge × Kickstarter"}
                 fill
                 priority
                 className="object-contain object-left"
@@ -214,7 +215,7 @@ export default function Hero() {
                           transformOrigin: "center bottom",
                         }}
                       >
-                        Get 40% Discount
+                        Get {config.discountPercentage}% Discount
                       </motion.span>
                       <motion.div
                         variants={{

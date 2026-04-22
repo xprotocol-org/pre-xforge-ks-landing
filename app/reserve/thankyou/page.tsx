@@ -10,14 +10,14 @@ import { motion } from "framer-motion";
 import { S } from "@/lib/animations";
 import { KICKSTARTER_URL } from "@/lib/utils";
 import { trackKickstarterClick } from "@/lib/analytics";
-import { useIsNewDomain } from "@/lib/use-domain";
+import { useIsReserveDomain } from "@/lib/use-domain";
 
 const VIP_GROUP_URL = "https://chat.whatsapp.com/Lb8Qe7sNYRZ7QatHAZyle0";
 
 export default function ThankYouPage() {
-  const isNew = useIsNewDomain();
-  const ctaLabel = isNew ? "Join VIP Group" : "Notify me on Kickstarter";
-  const ctaHref = isNew ? VIP_GROUP_URL : KICKSTARTER_URL;
+  const isReserve = useIsReserveDomain();
+  const ctaLabel = isReserve ? "Join VIP Group" : "Notify me on Kickstarter";
+  const ctaHref = isReserve ? VIP_GROUP_URL : KICKSTARTER_URL;
 
   return (
     <main className="relative w-full min-h-screen bg-xforge-black overflow-hidden flex items-center justify-center">
@@ -71,7 +71,7 @@ export default function ThankYouPage() {
             href={ctaHref}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => !isNew && trackKickstarterClick("thank_you_page")}
+            onClick={() => !isReserve && trackKickstarterClick("thank_you_page")}
             whileHover="wiggle"
             whileTap={{
               scale: 0.97,
@@ -87,7 +87,7 @@ export default function ThankYouPage() {
             >
               {ctaLabel}
             </motion.span>
-            {!isNew && (
+            {!isReserve && (
               <motion.div
                 variants={{ wiggle: { rotate: [0, -14, 12, -10, 8, -4, 0] } }}
                 transition={{ duration: 0.5 }}
@@ -107,9 +107,9 @@ export default function ThankYouPage() {
         {/* XForge × Kickstarter logos (XForge-only on new domain) */}
         <div className="flex items-center justify-center">
           <Image
-            src={isNew ? "/placeholders/xforge-logo-dark.svg" : "/placeholders/nav-logos.svg"}
-            alt={isNew ? "XForge" : "XForge × Kickstarter"}
-            width={isNew ? 68 : 239}
+            src={isReserve ? "/placeholders/xforge-logo-dark.svg" : "/placeholders/nav-logos.svg"}
+            alt={isReserve ? "XForge" : "XForge × Kickstarter"}
+            width={isReserve ? 68 : 239}
             height={15}
             className="h-[15px] w-auto"
           />

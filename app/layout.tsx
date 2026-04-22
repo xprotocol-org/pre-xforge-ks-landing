@@ -4,7 +4,7 @@ import { Inter_Tight, IBM_Plex_Serif, Space_Grotesk } from "next/font/google";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { DomainProvider } from "@/components/DomainProvider";
 import { SITE_URL } from "@/lib/utils";
-import { isNewDomainServer, RESERVE_DOMAIN } from "@/lib/domain";
+import { isReserveDomainServer, RESERVE_DOMAIN } from "@/lib/domain";
 import "./globals.css";
 
 const SITE_NAME = "XForge Phone";
@@ -38,9 +38,9 @@ export const viewport: Viewport = {
 export async function generateMetadata(): Promise<Metadata> {
   const headersList = await headers();
   const host = headersList.get("host");
-  const isNew = isNewDomainServer(host);
+  const isReserve = isReserveDomainServer(host);
 
-  const baseUrl = isNew ? `https://${RESERVE_DOMAIN}` : SITE_URL;
+  const baseUrl = isReserve ? `https://${RESERVE_DOMAIN}` : SITE_URL;
 
   return {
     metadataBase: new URL(baseUrl),
@@ -60,7 +60,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "passive income phone",
       "earn rewards",
       "blockchain phone",
-      ...(isNew ? [] : ["Kickstarter phone"]),
+      ...(isReserve ? [] : ["Kickstarter phone"]),
       "Web3 phone",
       "mining phone",
     ],
@@ -88,7 +88,7 @@ export async function generateMetadata(): Promise<Metadata> {
         "XForge is a premium Android smartphone powered by on-device AI built to reward you.",
       images: [
         {
-          url: isNew ? "/reserve/opengraph-image" : "/ks-og/opengraph-image",
+          url: isReserve ? "/reserve/opengraph-image" : "/ks-og/opengraph-image",
         },
       ],
     },
@@ -97,7 +97,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: "Meet XForge. The AI smartphone that pays it forward.",
       description:
         "XForge is a premium Android smartphone powered by on-device AI built to reward you.",
-      images: [isNew ? "/reserve/twitter-image" : "/ks-og/twitter-image"],
+      images: [isReserve ? "/reserve/twitter-image" : "/ks-og/twitter-image"],
     },
     alternates: {
       canonical: SITE_URL,
@@ -112,15 +112,16 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const headersList = await headers();
-  const isNew = isNewDomainServer(headersList.get("host"));
+  const isReserve = isReserveDomainServer(headersList.get("host"));
 
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
         className={`${interTight.variable} ${ibmPlexSerif.variable} ${spaceGrotesk.variable} antialiased font-sans`}
+        suppressHydrationWarning
       >
         <GoogleAnalytics />
-        <DomainProvider isNew={isNew}>{children}</DomainProvider>
+        <DomainProvider isReserve={isReserve}>{children}</DomainProvider>
       </body>
     </html>
   );

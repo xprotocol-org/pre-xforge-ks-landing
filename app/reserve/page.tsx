@@ -14,7 +14,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { S } from "@/lib/animations";
 import { trackReserveClick, trackKickstarterClick } from "@/lib/analytics";
 import { KICKSTARTER_URL } from "@/lib/utils";
-import { useIsNewDomain } from "@/lib/use-domain";
+import { useIsReserveDomain, useDomainConfig } from "@/lib/use-domain";
 
 const FAQ_ITEMS = [
   {
@@ -85,7 +85,7 @@ export default function ReservePage() {
 }
 
 function ProductImage() {
-  const isNew = useIsNewDomain();
+  const isReserve = useIsReserveDomain();
   return (
     <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[550px] rounded-[12px] overflow-hidden bg-[#050505]">
       <Image
@@ -98,8 +98,8 @@ function ProductImage() {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black" />
       <div className="absolute bottom-5 sm:bottom-8 left-5 sm:left-8 z-10 flex flex-col items-start gap-3 sm:gap-4">
         <Image
-          src={isNew ? "/placeholders/xforge-logo-light.svg" : "/placeholders/footer-logo.svg"}
-          alt={isNew ? "XForge" : "XForge × Kickstarter"}
+          src={isReserve ? "/placeholders/xforge-logo-light.svg" : "/placeholders/footer-logo.svg"}
+          alt={isReserve ? "XForge" : "XForge × Kickstarter"}
           width={200}
           height={15}
           className="h-[14px] sm:h-[18px] w-auto"
@@ -162,7 +162,8 @@ function GuaranteeCards() {
 }
 
 function ReserveForm() {
-  const isNew = useIsNewDomain();
+  const isReserve = useIsReserveDomain();
+  const config = useDomainConfig();
   const [reserving, setReserving] = useState(false);
 
   async function handleReserve() {
@@ -187,9 +188,9 @@ function ReserveForm() {
       <div className="w-full bg-white border border-xforge-border rounded-[16px] px-[16px] py-[20px] shadow-[0px_0px_0px_1px_#fafafa,0px_1px_2px_0px_rgba(0,0,0,0.3)] flex flex-col gap-[24px] overflow-hidden">
         {/* Logo (XForge-only on new domain) */}
         <Image
-          src={isNew ? "/placeholders/xforge-logo-dark.svg" : "/placeholders/nav-logos.svg"}
-          alt={isNew ? "XForge" : "XForge × Kickstarter"}
-          width={isNew ? 68 : 213}
+          src={isReserve ? "/placeholders/xforge-logo-dark.svg" : "/placeholders/nav-logos.svg"}
+          alt={isReserve ? "XForge" : "XForge × Kickstarter"}
+          width={isReserve ? 68 : 213}
           height={16}
           className="h-[16px] w-auto self-center lg:self-start"
         />
@@ -197,7 +198,7 @@ function ReserveForm() {
         {/* Discount info */}
         <div className="flex flex-col gap-[8px] items-center lg:items-start">
           <h1 className="text-[20px] sm:text-[24px] font-semibold leading-[1.1] text-[#050505] max-w-[364px] text-center lg:text-left">
-            Reserve your 40% Special Discount
+            Reserve your {config.discountPercentage}% Special Discount
           </h1>
           <p className="text-[14px] sm:text-[16px] font-normal leading-[1.3] text-[#707070]">
             Leave a small refundable deposit and reserve the lowest price ever.
@@ -205,7 +206,7 @@ function ReserveForm() {
         </div>
 
         {/* Launch info */}
-        {!isNew && (
+        {!isReserve && (
           <div className="flex items-center gap-[8px]">
             <Image
               src="/placeholders/icon-launch.svg"
@@ -224,13 +225,13 @@ function ReserveForm() {
         {/* Price */}
         <div className="flex items-center gap-[8px] sm:gap-[12px] flex-wrap">
           <span className="text-[32px] sm:text-[40px] font-bold italic leading-[1.1] text-[#050505]">
-            $299
+            ${config.price}
           </span>
           <span className="text-[20px] sm:text-[24px] font-medium italic leading-[1.1] text-[#707070] line-through">
-            $499
+            ${config.originalPrice}
           </span>
           <span className="bg-gradient-to-b from-[#1d6100] to-[#05ce78] border border-[#05ce78] text-white text-[12px] font-bold italic leading-[1.1] px-[8px] py-[4px] rounded-[94px]">
-            Save $200
+            Save ${config.saveAmount}
           </span>
         </div>
 
@@ -258,12 +259,12 @@ function ReserveForm() {
                 transition={{ duration: 0.5 }}
                 style={{ display: "inline-block", transformOrigin: "center bottom" }}
               >
-                Reserve Discount for $3
+                Reserve Discount for ${config.depositAmount}
               </motion.span>
             )}
           </motion.button>
 
-          {!isNew && (
+          {!isReserve && (
             <motion.a
               href={KICKSTARTER_URL}
               target="_blank"

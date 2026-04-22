@@ -10,10 +10,11 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { S } from "@/lib/animations";
 import { useEmailSubscribe } from "@/hooks/useEmailSubscribe";
-import { useIsNewDomain } from "@/lib/use-domain";
+import { useIsReserveDomain, useDomainConfig } from "@/lib/use-domain";
 
 export default function Footer() {
-  const isNew = useIsNewDomain();
+  const isReserve = useIsReserveDomain();
+  const config = useDomainConfig();
   const {
     email,
     setEmail,
@@ -55,10 +56,10 @@ export default function Footer() {
             transition={{ duration: 1.2, ease: [0.12, 1, 0.2, 1] }}
           >
             <Image
-              src={isNew ? "/placeholders/xforge-logo-light.svg" : "/placeholders/footer-logo.svg"}
-              alt={isNew ? "XForge" : "XForge × Kickstarter"}
-              width={isNew ? 118 : 424}
-              height={isNew ? 28 : 32}
+              src={isReserve ? "/placeholders/xforge-logo-light.svg" : "/placeholders/footer-logo.svg"}
+              alt={isReserve ? "XForge" : "XForge × Kickstarter"}
+              width={isReserve ? 118 : 424}
+              height={isReserve ? 28 : 32}
               className="max-w-[280px] sm:max-w-[313px] lg:max-w-full h-auto"
             />
           </motion.div>
@@ -115,7 +116,7 @@ export default function Footer() {
                       transition={{ duration: 0.5 }}
                       style={{ display: "inline-block", transformOrigin: "center bottom" }}
                     >
-                      Get 40% Discount
+                      Get {config.discountPercentage}% Discount
                     </motion.span>
                     <motion.div
                       variants={{ wiggle: { rotate: [0, -14, 12, -10, 8, -4, 0] } }}
@@ -147,7 +148,7 @@ export default function Footer() {
               </span>
               <span className="text-white">and save </span>
               <span className="font-semibold text-xforge-green-bright">
-                $200
+                ${config.saveAmount}
               </span>
             </p>
           </motion.div>
