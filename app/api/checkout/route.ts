@@ -8,12 +8,12 @@
 // Domain-aware: new domain uses a separate Stripe link.
 
 import { NextRequest, NextResponse } from "next/server";
-import { isNewDomainServer } from "@/lib/domain";
+import { isReserveDomainServer } from "@/lib/domain";
 
 export async function POST(request: NextRequest) {
   const host = request.headers.get("host");
 
-  if (isNewDomainServer(host)) {
+  if (isReserveDomainServer(host)) {
     const newDomainCheckoutUrl = process.env.NEW_DOMAIN_STRIPE_URL;
 
     if (!newDomainCheckoutUrl) {

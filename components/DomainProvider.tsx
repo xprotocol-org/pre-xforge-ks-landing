@@ -1,21 +1,27 @@
 "use client";
 
 import { createContext, useContext } from "react";
+import { getDomainConfig } from "@/lib/domain";
 
 const DomainContext = createContext(false);
 
 export function DomainProvider({
-  isNew,
+  isReserve,
   children,
 }: {
-  isNew: boolean;
+  isReserve: boolean;
   children: React.ReactNode;
 }) {
   return (
-    <DomainContext.Provider value={isNew}>{children}</DomainContext.Provider>
+    <DomainContext.Provider value={isReserve}>{children}</DomainContext.Provider>
   );
 }
 
-export function useIsNewDomain(): boolean {
+export function useIsReserveDomain(): boolean {
   return useContext(DomainContext);
+}
+
+export function useDomainConfig() {
+  const isReserve = useIsReserveDomain();
+  return getDomainConfig(isReserve);
 }

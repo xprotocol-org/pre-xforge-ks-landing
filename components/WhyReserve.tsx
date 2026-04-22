@@ -6,9 +6,10 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-
+import { useDomainConfig } from "@/lib/use-domain";
 
 export default function WhyReserve() {
+  const config = useDomainConfig();
   return (
     <section id="reserve" className="w-full bg-white py-8 sm:py-10 lg:py-[60px]">
       <div className="max-w-[874px] mx-auto px-4 sm:px-6 flex flex-col items-center gap-8 lg:gap-[48px]">
@@ -20,7 +21,7 @@ export default function WhyReserve() {
           transition={{ duration: 1.2, ease: [0.12, 1, 0.2, 1] }}
           className="text-[20px] sm:text-[28px] md:text-[36px] lg:text-[40px] font-semibold leading-[1.1] text-black text-center"
         >
-          <span>Why reserve with $3</span>
+          <span>Why reserve with ${config.depositAmount}</span>
         </motion.h2>
 
         {/* Content Container */}
@@ -33,7 +34,7 @@ export default function WhyReserve() {
         >
           {/* Subtitle */}
           <p className="text-[14px] sm:text-lg lg:text-[20px] font-normal leading-[1.3] text-black text-center max-w-[671px]">
-            <span className="font-bold">Save $200 </span>
+            <span className="font-bold">Save ${config.saveAmount} </span>
             <span>when you reserve XForge today!</span>
           </p>
 
@@ -45,7 +46,7 @@ export default function WhyReserve() {
                 MSRP
               </span>
               <span className="text-[40px] sm:text-[44px] md:text-[52px] lg:text-[60px] font-bold leading-[1.1] text-[#707070]/40 lg:text-[#707070] line-through">
-                $499
+                ${config.originalPrice}
               </span>
             </div>
 
@@ -60,7 +61,7 @@ export default function WhyReserve() {
                 YOUR PRICE
               </span>
               <span className="text-[40px] sm:text-[44px] md:text-[52px] lg:text-[60px] font-bold leading-[1.1] text-black">
-                $299
+                ${config.price}
               </span>
             </div>
 
@@ -71,9 +72,9 @@ export default function WhyReserve() {
           {/* Description */}
           <p className="text-[14px] sm:text-base lg:text-[18px] font-normal leading-[1.3] text-black text-center max-w-[874px]">
             <span>To receive this exclusive offer, simply place </span>
-            <span className="font-bold">$3 deposit</span>
+            <span className="font-bold">${config.depositAmount} deposit</span>
             <span>
-              {" "}and you will be locked in for our 40% discount
+              {" "}and you will be locked in for our {config.discountPercentage}% discount
             </span>
           </p>
         </motion.div>

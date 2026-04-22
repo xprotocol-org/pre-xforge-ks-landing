@@ -8,6 +8,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { S } from "@/lib/animations";
 import { useEmailSubscribe } from "@/hooks/useEmailSubscribe";
+import { useDomainConfig } from "@/lib/use-domain";
 
 export default function EmailSubscription() {
   const {
@@ -21,6 +22,8 @@ export default function EmailSubscription() {
     handleBlur,
     handleKeyDown,
   } = useEmailSubscribe("how_it_works");
+  
+  const config = useDomainConfig();
 
   return (
     <div className="w-full max-w-[360px] sm:max-w-[500px]">
@@ -65,7 +68,7 @@ export default function EmailSubscription() {
                 transition={{ duration: 0.5 }}
                 style={{ display: "inline-block", transformOrigin: "center bottom" }}
               >
-                Get 40% Discount
+                Get {config.discountPercentage}% Discount
               </motion.span>
               <motion.div
                 variants={{ wiggle: { rotate: [0, -14, 12, -10, 8, -4, 0] } }}
@@ -88,7 +91,7 @@ export default function EmailSubscription() {
         <p className="text-red-500 text-xs mt-2 text-center">{error}</p>
       )}
       <p className="text-[14px] sm:text-sm font-normal leading-[1.1] text-[#707070] text-center mt-3 sm:mt-4">
-        Reserve now and save <span className="font-bold">$200</span>
+        Reserve now and save <span className="font-bold">${config.saveAmount}</span>
       </p>
     </div>
   );
